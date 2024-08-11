@@ -7,7 +7,7 @@ import ProductForm from './ProductForm'
 import { useNavigate } from "react-router-dom";
 
 const ProductItem = ({ item }) => {
-    const { state, dispatch } = useContext(MainContext)
+    const { dispatch } = useContext(MainContext)
     const [modal, setModal] = useState(false)
     const [modalType, setModalType] = useState('delete')
 
