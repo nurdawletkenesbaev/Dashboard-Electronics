@@ -44,8 +44,8 @@ const ProductItem = ({ item }) => {
     }
     return (
         <div className="">
-            <div className='flex h-full flex-col justify-between gap-[5px] sm:gap-[10px] border-[1px] border-gray-300 p-[8px] sm:p-[15px] rounded-md shadow-lg'>
-                <div onClick={() => detailedProduct(item)} className='h-[200px] border-[1px] border-gray-300 p-[5px] sm:p-[10px] rounded-md  cursor-pointer hover:p-[15px] duration-200'>
+            <div className='flex w-[240px] h-full flex-col justify-between gap-[5px] sm:gap-[10px] border-[1px] border-gray-300 p-[8px] sm:p-[15px] rounded-md shadow-lg'>
+                <div onClick={() => detailedProduct(item)} className='h-[200px] border-[1px] border-gray-300 p-[5px] sm:p-[10px] rounded-md  cursor-pointer hover:p-0 duration-200'>
                     <img src={item?.images[0]} alt="" className='w-full h-full object-contain' />
                 </div>
                 <div className='flex flex-1 flex-col justify-between'>
@@ -53,7 +53,7 @@ const ProductItem = ({ item }) => {
 
                     <div className='mt-[5px]'>
                         <div className="flex justify-between items-center">
-                            <span className='text-green-500 font-bold text-[14px] md:text-[15px] lg:text-[16px] flex items-end'><span className="text-[17px] text-orange-500">$</span>{item.price}</span>
+                            <span className='text-green-500 font-bold text-[14px] md:text-[15px] lg:text-[16px] flex items-center'><span className="text-[17px] text-orange-500">$</span>{item.price}</span>
                             <div className="text-[19px] text-orange-500 flex items-center justify-center">
                                 <span><MdOutlineStarPurple500 /></span>
                                 <span className="text-[14px] text-green-500 md:text-[15px] lg:text-[16px] font-semibold">{item.rating}</span>
