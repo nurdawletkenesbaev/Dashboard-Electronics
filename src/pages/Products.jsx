@@ -8,7 +8,7 @@ const Products = () => {
   return (
     <div>
       {
-          <div className='grid justify-items-center gap-[7px] sm:gap-[15px] p-[10px] sm:p-[20px] grid-cols-[repeat(auto-fit,minmax(240px,1fr))]'>
+          <div className='grid gap-[7px] sm:gap-[15px] p-[10px] sm:p-[20px] grid-cols-[repeat(auto-fit,minmax(190px,1fr))]'>
             {
               state.isProductsLoading ?
               [1, 2, 3, 4, 5, 6].map(item => (

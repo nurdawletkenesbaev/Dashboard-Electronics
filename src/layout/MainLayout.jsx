@@ -4,7 +4,7 @@ import Header from '../components/Header'
 import Content from '../components/Content'
 import { Outlet } from 'react-router-dom'
 import { MainContext } from '../store/context'
-import { categoryData, menuAction, productData } from '../store/actions'
+import { categoryData, editProduct, menuAction, productData } from '../store/actions'
 
 const MainLayout = () => {
   const { state, dispatch } = useContext(MainContext)
@@ -16,6 +16,31 @@ const MainLayout = () => {
     categoryData(categoryUrl, dispatch)
     productData(productsUrl, dispatch)
   }, [])
+
+
+  // function string_to_slug(str) {
+  //   str = str.replace(/^\s+|\s+$/g, '');
+  //   str = str.toLowerCase();
+  //   var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+  //   var to = "aaaaeeeeiiiioooouuuunc------";
+  //   for (var i = 0, l = from.length; i < l; i++) {
+  //     str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+  //   }
+
+  //   str = str.replace(/[^a-z0-9 -]/g, '')
+  //     .replace(/\s+/g, '-')
+  //     .replace(/-+/g, '-');
+
+  //   return str;
+  // }
+  // state.products.map(item => (
+  //   // useEffect(()=> {
+  //     editProduct(productsUrl, item.id, {
+  //       ...item, 
+  //       slug: string_to_slug(item.title)
+  //     })  
+  //   // }, [])
+  // ))
 
 
   return (

@@ -44,7 +44,7 @@ const ProductItem = ({ item }) => {
     }
     return (
         <div className="">
-            <div className='flex w-[240px] h-full flex-col justify-between gap-[5px] sm:gap-[10px] border-[1px] border-gray-300 p-[8px] sm:p-[15px] rounded-md shadow-lg'>
+            <div className='flex min-w-[190px] h-full flex-col justify-between gap-[5px] sm:gap-[10px] border-[1px] border-gray-300 p-[8px] sm:p-[15px] rounded-md shadow-lg'>
                 <div onClick={() => detailedProduct(item)} className='h-[200px] border-[1px] border-gray-300 p-[5px] sm:p-[10px] rounded-md  cursor-pointer hover:p-0 duration-200'>
                     <img src={item?.images[0]} alt="" className='w-full h-full object-contain' />
                 </div>

@@ -15,7 +15,7 @@ const FilterCategories = () => {
         {selectCategory.title}
       </h1>
       {
-          <div className='grid gap-[7px] sm:gap-[15px] p-[10px] sm:p-[20px] grid-cols-2 sm:grid-cols-3 xl:grid-cols-4'>
+          <div className='grid gap-[7px] sm:gap-[15px] p-[10px] sm:p-[20px] grid-cols-[repeat(auto-fit,minmax(190px,1fr))]'>
             {
               
               filteredProducts.map(item => (
