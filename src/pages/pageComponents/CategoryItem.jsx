@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const CategoryItem = ({ item }) => {
   const { state, dispatch } = useContext(MainContext)
-  const url = 'http://localhost:3000/categories'
+  const url = 'https://electronics-data-1f9x.onrender.com/categories'
   const updateForm = useRef()
 
   const [modal, setModal] = useState(false)
