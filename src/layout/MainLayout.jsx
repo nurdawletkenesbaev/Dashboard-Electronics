@@ -5,6 +5,7 @@ import Content from '../components/Content'
 import { Outlet } from 'react-router-dom'
 import { MainContext } from '../store/context'
 import { categoryData, editProduct, menuAction, productData } from '../store/actions'
+import { Box, useColorModeValue } from '@chakra-ui/react'
 
 const MainLayout = () => {
   const { state, dispatch } = useContext(MainContext)
@@ -16,6 +17,9 @@ const MainLayout = () => {
     categoryData(categoryUrl, dispatch)
     productData(productsUrl, dispatch)
   }, [])
+
+  const borderColor = useColorModeValue('gray.400', 'gray.600')
+  const bgColor = useColorModeValue('gray.100', 'gray.700')
 
 
   // function string_to_slug(str) {
@@ -44,17 +48,17 @@ const MainLayout = () => {
 
 
   return (
-    <div className='flex relative p-[10px] gap-[10px]'>
+    <Box backgroundColor={bgColor} className='flex relative p-[10px] gap-[10px]'>
       <Sidebar />
-      <div className='w-full border-[1px] border-gray-300 rounded-md shadow-md overflow-hidden'>
+      <Box borderColor={borderColor} className='w-full border-[1px] rounded-md shadow-md overflow-hidden'>
         <Header />
         <Content>
           <Outlet />
         </Content>
-      </div>
+      </Box>
 
       <div onClick={() => menuAction(false, dispatch)} className={`absolute backdrop-blur-[2px] top-0 bottom-0 left-0 right-0 ${state.openMenu ? 'z-[4]' : '-z-10'}`}></div>
-    </div>
+    </Box>
   )
 }
 

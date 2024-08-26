@@ -1,3 +1,8 @@
+import { RiDeleteBin5Line } from "react-icons/ri"; 
+import { BiEdit } from "react-icons/bi"; 
+import { AiFillDelete } from "react-icons/ai"; 
+import { RiDeleteBin6Line } from "react-icons/ri"; 
+import { CiEdit } from "react-icons/ci"; 
 import { MdOutlineStarPurple500 } from "react-icons/md";
 import { BiImage } from "react-icons/bi";
 import React, { useContext, useEffect, useState } from 'react'
@@ -5,6 +10,8 @@ import { deleteCategory, productData } from '../../store/actions'
 import { MainContext } from '../../store/context'
 import ProductForm from './ProductForm'
 import { useNavigate } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
+import { Box, Button, useColorMode, useColorModeValue } from "@chakra-ui/react";
 
 const ProductItem = ({ item }) => {
     const { dispatch } = useContext(MainContext)
@@ -23,9 +30,16 @@ const ProductItem = ({ item }) => {
         setModal(false)
     }
 
+    const {ref, inView} = useInView({
+        threshold: 0.2,
+        triggerOnce: true
+    })
+    const bgColor = useColorModeValue('gray.50', 'gray.700')
+    const {colorMode} = useColorMode()
+
     if (!item) {
         return (
-            <div className='flex flex-col justify-between gap-[10px] border-[1px] border-gray-300 p-[15px] animate-pulse'>
+            <div ref={ref} className={`${inView ? 'top-0 opacity-100' : 'top-[30px] opacity-0'} duration-300 relative flex flex-col justify-between gap-[10px] border-[1px] border-gray-300 p-[15px] animate-pulse`}>
                 <div className='flex border-[1px] h-[200px] justify-center items-center text-[40px] text-gray-600 border-gray-300 p-[10px]'>
                     <BiImage />
                 </div>
@@ -42,10 +56,11 @@ const ProductItem = ({ item }) => {
             </div>
         )
     }
+
     return (
         <div className="">
-            <div className='flex min-w-[190px] h-full flex-col justify-between gap-[5px] sm:gap-[10px] border-[1px] border-gray-300 p-[8px] sm:p-[15px] rounded-md shadow-lg'>
-                <div onClick={() => detailedProduct(item)} className='h-[200px] border-[1px] border-gray-300 p-[5px] sm:p-[10px] rounded-md  cursor-pointer hover:p-0 duration-200'>
+            <Box backgroundColor={bgColor} ref={ref} className={`${inView ? 'top-0 opacity-100' : 'top-[30px] opacity-0'} duration-300 relative flex min-w-[190px] h-full flex-col justify-between gap-[5px] sm:gap-[10px] border-[1px] p-[8px] sm:p-[15px] rounded-md shadow-md ${colorMode === 'light' ? 'border-gray-400' : 'border-gray-600'}`}>
+                <div onClick={() => detailedProduct(item)} className={`h-[200px] border-[1px] p-[5px] sm:p-[10px] rounded-md  cursor-pointer hover:p-[3px] duration-200 ${colorMode === 'light' ? 'border-gray-400' : 'border-gray-600'}`}>
                     <img src={item?.images[0]} alt="" className='w-full h-full object-contain' />
                 </div>
                 <div className='flex flex-1 flex-col justify-between'>
@@ -64,32 +79,36 @@ const ProductItem = ({ item }) => {
                             <button onClick={() => {
                                 setModalType('update')
                                 setModal(true)
-                            }} className='py-[5px] duration-100 rounded-[3px] border-[1px] hover:scale-105 active:scale-95 text-gray-800 shadow-md active:shadow-sm font-semibold flex-1 text-[14px] md:text-[15px] lg:text-[16px]'>Update</button>
+                            }} className={`p-[5px] text-[20px] flex justify-center text-blue-700 font-bold duration-100 rounded-[3px] border-[1px] active:scale-95 shadow-md hover:shadow-sm flex-1 ${colorMode === 'light' ? 'bg-gray-200 border-gray-400' : 'bg-gray-700 border-gray-600'}`}>
+                                <BiEdit />
+                            </button>
                             <button onClick={() => {
                                 setModalType('delete')
                                 setModal(true)
-                            }} className='py-[5px] duration-100 rounded-[3px] border-[1px] hover:scale-105 active:scale-95 text-gray-800 shadow-md active:shadow-sm font-semibold flex-1 text-[14px] md:text-[15px] lg:text-[16px]'>Delete</button>
+                            }} className={`p-[5px] text-[20px] flex justify-center text-red-500 font-bold duration-100 rounded-[3px] border-[1px] active:scale-95 shadow-md hover:shadow-sm flex-1 ${colorMode === 'light' ? 'bg-gray-200 border-gray-400' : 'bg-gray-700 border-gray-600'}`}>
+                                <RiDeleteBin5Line />
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Box>
             <div className={`fixed z-[2] ${modal ? 'flex backdrop-blur-[2px]' : 'hidden'} top-0 bottom-0 right-0 flex justify-center  left-0 bg-inherit  duration-500 ease items-start`}>
                 {
                     modalType === 'update' ?
-                        <div className="absolute top-10 bottom-10 overflow-y-auto z-10 w-[400px]  p-[20px] bg-white h-auto border-[1px] border-gray-300 shadow-lg rounded-sm">
+                        <Box backgroundColor={bgColor} className="absolute top-10 bottom-10 overflow-y-auto z-10 w-[400px]  p-[20px] h-auto border-[1px] border-gray-300 shadow-lg rounded-sm">
                             <ProductForm updateData={item} id={item.id} setModal={setModal} />
-                        </div>
+                        </Box>
                         :
-                        <div className='absolute z-10 top-10 p-[20px] bg-white h-auto border-[1px] border-gray-300 shadow-lg rounded-sm'>
+                        <Box backgroundColor={bgColor} className='absolute z-10 top-10 p-[20px] h-auto border-[1px] border-gray-300 shadow-lg rounded-sm'>
                             <p>Are you sure this category deleted?</p>
                             <div className='flex justify-end gap-3 pt-3'>
-                                <button onClick={() => setModal(false)} className='py-[7px] px-[20px] bg-indigo-500 text-white rounded-sm border-gray-300 border-[1px] active:scale-95'>Cancel</button>
-                                <button onClick={() => deleteItem(url, item.id)} className='py-[7px] px-[20px] rounded-sm bg-red-500 text-white active:scale-95'>Delete</button>
+                                <Button colorScheme="blue" onClick={() => setModal(false)} >Cancel</Button>
+                                <Button colorScheme="red" onClick={() => deleteItem(url, item.id)}>Delete</Button>
                             </div>
-                        </div>
+                        </Box>
 
                 }
-                <div onClick={() => setModal(false)} className={`absolute top-0 bottom-0 right-0  left-0 bg-transparent justify-center items-start z-[3]`}></div>
+                <div onClick={() => setModal(false)} className={`absolute top-0 bottom-0 right-0  left-0 bg-black opacity-50 justify-center items-start z-[3]`}></div>
             </div>
         </div>
 

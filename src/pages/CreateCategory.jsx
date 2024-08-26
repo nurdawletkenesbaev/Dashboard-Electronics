@@ -3,6 +3,7 @@ import { categoryData, postCategory } from '../store/actions'
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { MainContext } from '../store/context';
+import { Button, Input } from '@chakra-ui/react';
 
 const CreateCategory = () => {
   const createCategoryForm = useRef()
@@ -48,21 +49,14 @@ const CreateCategory = () => {
       });
       createForm.current.reset()
     }
-    else {
-      e.target['create-product-input'].focus()
-      e.target['create-product-input'].style.border = '2px solid red'
-      setTimeout(() => {
-        e.target['create-product-input'].style.border = ''
-      }, 1000);
-    }
 
   }
   return (
     <form ref={createForm} onSubmit={(e) => handleSubmit(e)} className='flex flex-col gap-[15px] p-[20px]'>
       <label htmlFor="create-product-input">Category name</label>
-      <input ref={createCategoryForm} type="text" id='create-product-input' placeholder='Enter the category name' className='border-gray-300 py-[7px] px-[15px] border-[1px] outline-none' />
+      <Input ref={createCategoryForm} type="text" id='create-product-input' placeholder='Enter the category name' className='border-gray-300 py-[7px] px-[15px] border-[1px] outline-none' />
       <div className='flex justify-end'>
-        <button type='submit' className='bg-indigo-500 py-[7px] px-[15px] rounded-sm active:scale-95 text-white'>Submit</button>
+        <Button type='submit' colorScheme='blue'>Submit</Button>
       </div>
       <ToastContainer />
     </form>
