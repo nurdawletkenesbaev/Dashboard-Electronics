@@ -4,10 +4,11 @@ import { RiMenu4Line } from "react-icons/ri";
 import { CiSearch } from "react-icons/ci";
 import React, { useContext, useState } from 'react'
 import { useLocation } from "react-router-dom";
-import { menuAction } from "../store/actions";
+import { menuAction, selectLangAction } from "../store/actions";
 import { MainContext } from "../store/context";
 import { buttons } from "../config/constants";
-import { Box, Input, InputGroup, InputLeftElement, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, IconButton, Input, InputGroup, InputLeftElement, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { pathname } = useLocation()
@@ -17,27 +18,54 @@ const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const bgColor = useColorModeValue('gray.100', 'gray.900')
   const borderColor = useColorModeValue('gray.400', 'gray.600')
+  const btnBgColor = useColorModeValue('white', 'gray.800')
+
+  const [openLang, setOpenLang] = useState(false)
+
+  const { i18n, t } = useTranslation()
+
+  function stringToI18(str) {
+    return str.toLowerCase().split(' ')
+      .join('-')
+  }
 
   return (
     <Box backgroundColor={bgColor} borderColor={borderColor} className='h-[70px] w-[100%] md:w-[calc(100vw-283px)] border-b-[1px] flex justify-between items-center px-[20px]'>
       <div className="flex gap-2 items-center text-[20px] font-medium">
         {selectIcon?.icon()}
-        {selectIcon?.title}
+        {t(`${stringToI18(selectIcon?.title)}`)}
       </div>
       <div className="relative w-[30%] sm:w-[50%] flex gap-[20px] justify-end">
-        <InputGroup>
-          <InputLeftElement>
+        <InputGroup display={{ base: 'none', lg: 'block' }}>
+          <InputLeftElement >
             <CiSearch />
           </InputLeftElement>
-          <Input borderColor={borderColor} type="text" placeholder='Search...' className="border-[1px] w-full hidden sm:block" />
+          <Input borderColor={borderColor} type="text" placeholder={t('search')} className="border-[1px] w-full" />
         </InputGroup>
-        <button className="block sm:hidden text-[24px]">
+        <IconButton display={{ base: 'flex', lg: 'none' }} fontSize={'24px'} border={'1px'} borderColor={borderColor}>
           <CiSearch />
-        </button>
-        {/* <button className="absolute top-[8px] hidden sm:block text-gray-400 left-[3px] text-[22px]">
-          <CiSearch />
-        </button> */}
-        <button className="block text-[25px] text-gray-700 md:hidden" onClick={() => menuAction(!state.openMenu, dispatch)}><RiMenu4Line /></button>
+        </IconButton>
+        <Box className="relative">
+          <Button onClick={() => setOpenLang(!openLang)} border={'1px'} width={'60px'} borderColor={borderColor}>{state.selectLang}</Button>
+          <Box border={'1px'} borderColor={borderColor} backgroundColor={btnBgColor} className={`absolute bottom-[-120px] right-[-16px] z-10 p-[4px] rounded-md ${!openLang && 'hidden'}`} >
+            <Button onClick={() => {
+              selectLangAction('Qar', dispatch)
+              setOpenLang(false)
+              i18n.changeLanguage('qar')
+            }} border={'1px'} size={'lg'} borderColor={borderColor} className="m-[3px]" display={state.selectLang === 'Qar' && 'none'}>Qar</Button>
+            <Button onClick={() => {
+              selectLangAction('Rus', dispatch)
+              setOpenLang(false)
+              i18n.changeLanguage('rus')
+            }} border={'1px'} size={'lg'} borderColor={borderColor} className="m-[3px]" display={state.selectLang === 'Rus' && 'none'}>Rus</Button>
+            <Button onClick={() => {
+              selectLangAction('Eng', dispatch)
+              setOpenLang(false)
+              i18n.changeLanguage('eng')
+            }} border={'1px'} size={'lg'} borderColor={borderColor} className="m-[3px]" display={state.selectLang === 'Eng' && 'none'}>Eng</Button>
+          </Box>
+        </Box>
+        <button className="block text-[25px] md:hidden" onClick={() => menuAction(!state.openMenu, dispatch)}><RiMenu4Line /></button>
         <button onClick={toggleColorMode} className="text-[20px]">
           {colorMode === 'light' ? <BsMoonStars /> : <BsSun />}
         </button>

@@ -4,6 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { MainContext } from '../store/context';
 import { Button, Input } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 const CreateCategory = () => {
   const createCategoryForm = useRef()
@@ -11,6 +12,7 @@ const CreateCategory = () => {
   const createForm = useRef()
 
   const { dispatch } = useContext(MainContext)
+  const {t} = useTranslation()
 
   function string_to_slug(str) {
     str = str.replace(/^\s+|\s+$/g, '');
@@ -53,8 +55,8 @@ const CreateCategory = () => {
   }
   return (
     <form ref={createForm} onSubmit={(e) => handleSubmit(e)} className='flex flex-col gap-[15px] p-[20px]'>
-      <label htmlFor="create-product-input">Category name</label>
-      <Input ref={createCategoryForm} type="text" id='create-product-input' placeholder='Enter the category name' className='border-gray-300 py-[7px] px-[15px] border-[1px] outline-none' />
+      <label htmlFor="create-product-input">{t('category-name')}</label>
+      <Input ref={createCategoryForm} type="text" id='create-product-input' placeholder={t('enter-the-category-name')} className='border-gray-300 py-[7px] px-[15px] border-[1px] outline-none' />
       <div className='flex justify-end'>
         <Button type='submit' colorScheme='blue'>Submit</Button>
       </div>

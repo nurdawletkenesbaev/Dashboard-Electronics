@@ -4,11 +4,12 @@ import { categoryData, editProduct, postProduct, productData } from '../../store
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Input, Select, Textarea } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 const ProductForm = ({ updateData, id, setModal }) => {
     const { state, dispatch } = useContext(MainContext)
 
-
+    const {t} = useTranslation()
     const [img1, setImg1] = useState('1')
     const [img2, setImg2] = useState('2')
     const [img3, setImg3] = useState('3')
@@ -89,7 +90,7 @@ const ProductForm = ({ updateData, id, setModal }) => {
     }
     return (
         <form ref={createProductForm} onSubmit={(e) => handleSubmit(e)} action="" className='flex flex-col gap-[5px]'>
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">{t('product-name')}</label>
             <Input required defaultValue={updateData?.title} onChange={(e) => {
                 const value = e.target.value.trim()
                 if (value.length > 0) {
@@ -98,9 +99,9 @@ const ProductForm = ({ updateData, id, setModal }) => {
                         title: value
                     })
                 }
-            }} className='mb-[10px]' type="text" placeholder='Enter the name' id='name' />
+            }} className='mb-[10px]' type="text" placeholder={t('enter-the-product-name')} id='name' />
 
-            <label htmlFor="price">Price</label>
+            <label htmlFor="price">{t('product-price')}</label>
             <Input required defaultValue={updateData?.price} onChange={(e) => {
                 const value = e.target.value.trim()
                 if (value.length > 0) {
@@ -109,33 +110,33 @@ const ProductForm = ({ updateData, id, setModal }) => {
                         price: value
                     })
                 }
-            }} className='mb-[10px]' type="text" placeholder='Enter the price' id='price' />
+            }} className='mb-[10px]' type="text" placeholder={t('enter-the-product-price')} id='price' />
 
-            <label htmlFor="image-url1">Image url(1)</label>
+            <label htmlFor="image-url1">{t('product-image-url')}(1)</label>
             <Input required defaultValue={updateData?.images?.[0]} onChange={(e) => {
                 const value = e.target.value.trim()
                 if (value.length > 0) {
                     setImg1(value)
                 }
-            }} className='mb-[10px]' type="url" placeholder='Enter the image url' id='image-url1' />
+            }} className='mb-[10px]' type="url" placeholder={t('enter-the-product-image-url')} id='image-url1' />
 
-            <label htmlFor="image-url2">Image url(2)</label>
+            <label htmlFor="image-url2">{t('product-image-url')}(2)</label>
             <Input required defaultValue={updateData?.images[1]} onChange={(e) => {
                 const value = e.target.value.trim()
                 if (value.length > 0) {
                     setImg2(value)
                 }
-            }} className='mb-[10px]' type="url" placeholder='Enter the image url' id='image-url2' />
+            }} className='mb-[10px]' type="url" placeholder={t('enter-the-product-image-url')} id='image-url2' />
 
-            <label htmlFor="image-url3">Image url(3)</label>
+            <label htmlFor="image-url3">{t('product-image-url')}(3)</label>
             <Input required defaultValue={updateData?.images[2]} onChange={(e) => {
                 const value = e.target.value.trim()
                 if (value.length > 0) {
                     setImg3(value)
                 }
-            }} className='mb-[10px]' type="url" placeholder='Enter the image url' id='image-url3' />
+            }} className='mb-[10px]' type="url" placeholder={t('enter-the-product-image-url')} id='image-url3' />
 
-            <label htmlFor="rating">Rating</label>
+            <label htmlFor="rating">{t('product-rating')}</label>
             <Input required defaultValue={updateData?.rating} onChange={(e) => {
                 const value = e.target.value.trim()
                 if (value.length > 0) {
@@ -144,9 +145,9 @@ const ProductForm = ({ updateData, id, setModal }) => {
                         rating: value
                     })
                 }
-            }} className='mb-[10px]' type="text" placeholder='Enter the rating' id='rating' />
+            }} className='mb-[10px]' type="text" placeholder={t('enter-the-product-rating')} id='rating' />
 
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">{t('product-description')}</label>
             <Textarea required defaultValue={updateData?.description} onChange={(e) => {
                 const value = e.target.value.trim()
                 if (value.length > 0) {
@@ -155,10 +156,10 @@ const ProductForm = ({ updateData, id, setModal }) => {
                         description: value
                     })
                 }
-            }} className='mb-[10px]' name="" id="description" placeholder='Enter the description'></Textarea>
+            }} className='mb-[10px]' name="" id="description" placeholder={t('enter-the-product-description')}></Textarea>
 
-            <label htmlFor="select">Select a category</label>
-            <Select placeholder='Select a category' required defaultValue={updateData?.categoryId} onChange={(e) => {
+            <label htmlFor="select">{t('select-category')}</label>
+            <Select placeholder={t('select-category')} required defaultValue={updateData?.categoryId} onChange={(e) => {
                 const value = e.target.value
                 if (value.length > 0) {
                     setData({

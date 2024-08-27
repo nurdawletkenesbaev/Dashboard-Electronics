@@ -89,3 +89,11 @@ export function menuAction(payload, dispatch) {
         payload
     })
 }
+
+
+export function selectLangAction(payload, dispatch) {
+    dispatch({
+        type: 'Select_lang',
+        payload
+    })
+}

@@ -3,7 +3,8 @@ export const initialState = {
     products: [],
     isProductsLoading: false,
     isCategoriesLoading: true,
-    openMenu: false
+    openMenu: false,
+    selectLang: 'Eng'
 }
 
 export function reducer(state, action) {
@@ -46,5 +47,10 @@ export function reducer(state, action) {
                 ...state,
                 openMenu: action.payload
             }
+            case 'Select_lang':
+                return {
+                    ...state,
+                    selectLang: action.payload
+                }
     }
 }
