@@ -31,11 +31,13 @@ const Header = () => {
 
   return (
     <Box backgroundColor={bgColor} borderColor={borderColor} className='h-[70px] w-[100%] md:w-[calc(100vw-283px)] border-b-[1px] flex justify-between items-center px-[20px]'>
-      <div className="flex gap-2 items-center text-[20px] font-medium">
-        {selectIcon?.icon()}
-        {t(`${stringToI18(selectIcon?.title)}`)}
+      {
+        selectIcon&&<div className="flex gap-2 items-center text-[20px] font-medium">
+        <span>{selectIcon?.icon()}</span>
+        <span className="hidden sm:flex">{t(`${stringToI18(selectIcon?.title)}`)}</span>
       </div>
-      <div className="relative w-[30%] sm:w-[50%] flex gap-[20px] justify-end">
+      }
+      <div className={`${selectIcon ? 'relative w-[30%] sm:w-[50%] flex gap-[20px] justify-end' : 'w-full flex justify-end gap-[20px]'}`}>
         <InputGroup display={{ base: 'none', lg: 'block' }}>
           <InputLeftElement >
             <CiSearch />
