@@ -13,7 +13,7 @@ i18n.use(initReactI18next)
                     "categories": "Categories",
                     "products": "Products",
                     "create-category": "Create category",
-                    "create-product": "Create category",
+                    "create-product": "Create product",
                     "category-name":"Category name",
                     "enter-the-category-name":"Enter the category name",
                     "product-name": "Product name",
