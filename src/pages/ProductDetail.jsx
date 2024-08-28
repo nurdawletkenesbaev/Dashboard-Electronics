@@ -2,6 +2,7 @@ import { AiFillStar } from "react-icons/ai";
 import React, { useContext, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { MainContext } from '../store/context'
+import ReactStarsRating from 'react-awesome-stars-rating';
 
 const ProductDetail = () => {
     const {slug} = useParams()
@@ -33,10 +34,10 @@ const ProductDetail = () => {
       <div className='flex-1 flex flex-col gap-[15px] justify-center'>
         <h2 className="font-semibold text-[24px]">{selectProduct?.title}</h2>
         <div className="flex justify-start items-center gap-[4px]">
-            <span className="text-orange-500"><AiFillStar /></span>
+            <ReactStarsRating stars={5} value={selectProduct?.rating} className='flex' />
             <span className="text-green-500">{selectProduct?.rating}/5</span>
         </div>
-        <p className="text-green-500"><span className="text-orange-500 mr-[4px] font-bold">$</span>{selectProduct?.price}</p>
+        <p className="text-green-500"><span className="text-yellow-500 mr-[4px] font-bold">$</span>{selectProduct?.price}</p>
         <div className="max-h-[150px] overflow-y-auto border-[1px] border-gray-300 p-[20px] rounded-md" >
             {selectProduct?.description}
         </div>

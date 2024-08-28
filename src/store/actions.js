@@ -97,3 +97,10 @@ export function selectLangAction(payload, dispatch) {
         payload
     })
 }
+
+export function toggleSettingModal(payload, dispatch) {
+    dispatch({
+        type: 'Setting_modal',
+        payload
+    })
+}

@@ -4,7 +4,8 @@ export const initialState = {
     isProductsLoading: false,
     isCategoriesLoading: true,
     openMenu: false,
-    selectLang: 'Eng'
+    selectLang: 'Eng',
+    settingModal: false
 }
 
 export function reducer(state, action) {
@@ -47,10 +48,15 @@ export function reducer(state, action) {
                 ...state,
                 openMenu: action.payload
             }
-            case 'Select_lang':
-                return {
-                    ...state,
-                    selectLang: action.payload
-                }
+        case 'Select_lang':
+            return {
+                ...state,
+                selectLang: action.payload
+            }
+        case 'Setting_modal':
+            return {
+                ...state,
+                settingModal: !state.settingModal
+            }
     }
 }

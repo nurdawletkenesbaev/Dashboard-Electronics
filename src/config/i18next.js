@@ -10,6 +10,11 @@ i18n.use(initReactI18next)
         resources : {
             eng : {
                 translation: {
+                    "back": "Back",
+                    "languages": "Languages",
+                    "light-mode": "Light mode",
+                    "dark-mode": "Dark mode",
+                    "settings": "Settings",
                     "categories": "Categories",
                     "products": "Products",
                     "create-category": "Create category",
@@ -32,6 +37,11 @@ i18n.use(initReactI18next)
             },
             rus : {
                 translation: {
+                    "back": "Назад",
+                    "languages": "Языки",
+                    "light-mode": "Светлый режим",
+                    "dark-mode": "Темный режим",
+                    "settings": "Настройки",
                     "categories": "Категории",
                     "products": "Продукты",
                     "create-category": "Создать категорию",
@@ -54,6 +64,11 @@ i18n.use(initReactI18next)
             },
             qar : {
                 translation: {
+                    "back": "Artqa",
+                    "languages": "Tiller",
+                    "light-mode": "Jaqtı rejim",
+                    "dark-mode": "Qarańǵı rejim",
+                    "settings": "Sazlamalar",
                     "categories": "Kategoriyalar",
                     "products": "Ónimler",
                     "create-category": "Kategoriya jaratıw",

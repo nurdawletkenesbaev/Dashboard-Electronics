@@ -68,8 +68,8 @@ const ProductItem = ({ item }) => {
 
                     <div className='mt-[5px]'>
                         <div className="flex justify-between items-center">
-                            <span className='text-green-500 font-bold text-[14px] md:text-[15px] lg:text-[16px] flex items-center'><span className="text-[17px] text-orange-500">$</span>{item.price}</span>
-                            <div className="text-[19px] text-orange-500 flex items-center justify-center">
+                            <span className='text-green-500 font-bold text-[14px] md:text-[15px] lg:text-[16px] flex items-center'><span className="text-[17px] text-yellow-500">$</span>{item.price}</span>
+                            <div className="text-[19px] text-yellow-500 flex items-center justify-center">
                                 <span><MdOutlineStarPurple500 /></span>
                                 <span className="text-[14px] text-green-500 md:text-[15px] lg:text-[16px] font-semibold">{item.rating}</span>
                             </div>

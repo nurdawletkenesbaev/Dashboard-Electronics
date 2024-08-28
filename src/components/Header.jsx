@@ -34,20 +34,20 @@ const Header = () => {
       {
         selectIcon&&<div className="flex gap-2 items-center text-[20px] font-medium">
         <span>{selectIcon?.icon()}</span>
-        <span className="hidden sm:flex">{t(`${stringToI18(selectIcon?.title)}`)}</span>
+        <span>{t(`${stringToI18(selectIcon?.title)}`)}</span>
       </div>
       }
-      <div className={`${selectIcon ? 'relative w-[30%] sm:w-[50%] flex gap-[20px] justify-end' : 'w-full flex justify-end gap-[20px]'}`}>
+      <div className={`${selectIcon ? 'relative w-[30%] sm:w-[50%] flex gap-[20px] justify-end' : 'w-full flex justify-end gap-[20px] items-center'}`}>
         <InputGroup display={{ base: 'none', lg: 'block' }}>
           <InputLeftElement >
             <CiSearch />
           </InputLeftElement>
           <Input borderColor={borderColor} type="text" placeholder={t('search')} className="border-[1px] w-full" />
         </InputGroup>
-        <IconButton display={{ base: 'flex', lg: 'none' }} fontSize={'24px'} border={'1px'} borderColor={borderColor}>
+        <button className="hidden sm:flex text-[24px] items-center">
           <CiSearch />
-        </IconButton>
-        <Box className="relative">
+        </button>
+        <Box className="relative hidden sm:block">
           <Button onClick={() => setOpenLang(!openLang)} border={'1px'} width={'60px'} borderColor={borderColor}>{state.selectLang}</Button>
           <Box border={'1px'} borderColor={borderColor} backgroundColor={btnBgColor} className={`absolute bottom-[-120px] right-[-16px] z-10 p-[4px] rounded-md ${!openLang && 'hidden'}`} >
             <Button onClick={() => {
@@ -68,7 +68,7 @@ const Header = () => {
           </Box>
         </Box>
         <button className="block text-[25px] md:hidden" onClick={() => menuAction(!state.openMenu, dispatch)}><RiMenu4Line /></button>
-        <button onClick={toggleColorMode} className="text-[20px]">
+        <button onClick={toggleColorMode} className="text-[20px] hidden sm:block">
           {colorMode === 'light' ? <BsMoonStars /> : <BsSun />}
         </button>
       </div>
