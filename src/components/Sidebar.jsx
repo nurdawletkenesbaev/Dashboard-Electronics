@@ -1,16 +1,20 @@
-import { RxArrowLeft } from "react-icons/rx"; 
+import { RxArrowLeft } from "react-icons/rx";
 import { AiOutlineSetting } from "react-icons/ai";
 import { TbLanguage } from "react-icons/tb";
 import { CiSearch } from "react-icons/ci";
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from "react-router-dom";
 import { MainContext } from "../store/context";
-import { menuAction, toggleSettingModal } from "../store/actions";
+import { menuAction, selectLangAction, toggleSettingModal } from "../store/actions";
 import { buttons } from "../config/constants";
-import { Box, Button, FormLabel, Switch, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Radio, RadioGroup, Stack, Switch, useColorMode, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 const Sidebar = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [value, setValue] = useState('1')
+  const [modalType, setModalType] = useState('')
+
   const { state, dispatch } = useContext(MainContext)
   const btnBg = useColorModeValue('gray.50', 'gray.700')
   const borderColor = useColorModeValue('gray.400', 'gray.600')
@@ -35,7 +39,7 @@ const Sidebar = () => {
       {
         !state.settingModal ?
           <div className="flex flex-col gap-[10px] mt-[10px] px-[8px]">
-            <button onClick={() => toggleSettingModal(state.settingModal, dispatch)} className={`${colorMode === 'light' ? 'border-gray-400 bg-gray-50 hover:bg-gray-200' : 'border-gray-600 bg-gray-700 hover:bg-gray-800'} w-full py-[10px]  font-semibold text-[18px] shadow-md active:scale-95 hover:shadow-sm border-[1px] gap-[5px] px-[15px] duration-100 ease-linear flex items-center rounded-md sm:hidden`}>
+            <button onClick={() => toggleSettingModal(true, dispatch)} className={`${colorMode === 'light' ? 'border-gray-400 bg-gray-50 hover:bg-gray-200' : 'border-gray-600 bg-gray-700 hover:bg-gray-800'} w-full py-[6px]  font-semibold text-[18px] shadow-md active:scale-95 hover:shadow-sm border-[1px] gap-[5px] px-[15px] duration-100 ease-linear flex items-center rounded-md sm:hidden`}>
               <span className="text-[24px]"><AiOutlineSetting /></span>
               {t('settings')}
             </button>
@@ -53,15 +57,21 @@ const Sidebar = () => {
           </div>
           :
           <div className="flex flex-col gap-[10px] mt-[10px] px-[8px]">
-            <Box onClick={() => toggleSettingModal(state.settingModal, dispatch)} border={'1px'} borderColor={borderColor} className="flex items-center gap-[5px] py-[7px] px-[15px] rounded-md cursor-pointer">
+            <Box onClick={() => toggleSettingModal(false, dispatch)} border={'1px'} borderColor={borderColor} className="flex items-center gap-[5px] py-[7px] px-[15px] rounded-md cursor-pointer active:scale-95 duration-200">
               <span className="text-[20px]"><RxArrowLeft /></span>
               <span>{t('back')}</span>
             </Box>
-            <Box border={'1px'} borderColor={borderColor} className="flex items-center gap-[5px] py-[7px] px-[15px] rounded-md cursor-pointer">
+            <Box onClick={() => {
+              setModalType('search')
+              onOpen()
+            }} border={'1px'} borderColor={borderColor} className="flex items-center gap-[5px] py-[7px] px-[15px] rounded-md cursor-pointer">
               <span className="text-[20px]"><CiSearch /></span>
               <span>{t('search')}</span>
             </Box>
-            <Box border={'1px'} borderColor={borderColor} className="flex items-center gap-[5px] py-[7px] px-[15px] rounded-md cursor-pointer">
+            <Box onClick={() => {
+              setModalType('language')
+              onOpen()
+            }} border={'1px'} borderColor={borderColor} className="flex items-center gap-[5px] py-[7px] px-[15px] rounded-md cursor-pointer">
               <span className="text-[20px]"><TbLanguage /></span>
               <span>{t('languages')}</span>
             </Box>
@@ -77,6 +87,50 @@ const Sidebar = () => {
 
           </div>
       }
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        {
+          modalType === 'language' ?
+            <ModalContent>
+              <ModalHeader>{t('select-language')}</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <RadioGroup onChange={setValue} value={value}>
+                  <Stack direction='row' display={'flex'} flexDirection={'column'}>
+                    <Radio value='1' onChange={() => {
+                      selectLangAction('Eng', dispatch)
+                      i18n.changeLanguage('eng')
+                    }}>English</Radio>
+                    <Radio value='2' onChange={() => {
+                      selectLangAction('Rus', dispatch)
+                      i18n.changeLanguage('rus')
+                    }}>Русский</Radio>
+                    <Radio value='3' onChange={() => {
+                      selectLangAction('Qar', dispatch)
+                      i18n.changeLanguage('qar')
+                    }}>Qaraqalpaqsha</Radio>
+                  </Stack>
+                </RadioGroup>
+              </ModalBody>
+
+              <ModalFooter>
+              </ModalFooter>
+            </ModalContent>
+            :
+            <ModalContent>
+              <ModalHeader>{t('search')}</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Input />
+              </ModalBody>
+
+              <ModalFooter>
+                <Button colorScheme='blue'>Search</Button>
+              </ModalFooter>
+            </ModalContent>
+        }
+      </Modal>
     </Box>
   )
 }

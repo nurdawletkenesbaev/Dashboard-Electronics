@@ -56,7 +56,7 @@ export function reducer(state, action) {
         case 'Setting_modal':
             return {
                 ...state,
-                settingModal: !state.settingModal
+                settingModal: action.payload
             }
     }
 }

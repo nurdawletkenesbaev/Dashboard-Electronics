@@ -1,26 +1,30 @@
+import { AiOutlinePlus } from "react-icons/ai";
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { MainContext } from '../../store/context'
 import { categoryData, editProduct, postProduct, productData } from '../../store/actions'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Button, Input, Select, Textarea } from '@chakra-ui/react';
+import { Button, ButtonGroup, IconButton, Input, InputGroup, InputRightElement, Select, Textarea } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
+import UpdateInput from "./UpdateInput";
 
 const ProductForm = ({ updateData, id, setModal }) => {
     const { state, dispatch } = useContext(MainContext)
+    const imageInput = useRef(null)
 
-    const {t} = useTranslation()
-    const [img1, setImg1] = useState('1')
-    const [img2, setImg2] = useState('2')
-    const [img3, setImg3] = useState('3')
+    const { t } = useTranslation()
 
-    useEffect(() => {
-        if (updateData) {
-            setImg1(updateData.images[0])
-            setImg2(updateData.images[1])
-            setImg3(updateData.images[2])
-        }
-    }, [])
+    // const [img1, setImg1] = useState('1')
+    // const [img2, setImg2] = useState('2')
+    // const [img3, setImg3] = useState('3')
+
+    // useEffect(() => {
+    //     if (updateData) {
+    //         setImg1(updateData.images[0])
+    //         setImg2(updateData.images[1])
+    //         setImg3(updateData.images[2])
+    //     }
+    // }, [])
 
     const createProductForm = useRef()
     const [data, setData] = useState(
@@ -33,6 +37,7 @@ const ProductForm = ({ updateData, id, setModal }) => {
                 categoryId: ''
             }
     )
+    const [images, setImages] = useState(updateData ? updateData.images : [])
 
     const categoryUrl = 'https://electronics-data-1f9x.onrender.com/categories'
     const productUrl = 'https://electronics-data-1f9x.onrender.com/products'
@@ -62,17 +67,15 @@ const ProductForm = ({ updateData, id, setModal }) => {
         if (updateData) {
             editProduct(productUrl, id, {
                 ...data,
-                images: [img1, img2, img3],
                 slug: string_to_slug(data.title)
             }).then(d => productData(productUrl, dispatch))
             createProductForm.current.reset()
             setModal(false)
         }
         else {
-            console.log('post')
             postProduct(productUrl, {
                 ...data,
-                images: [img1, img2, img3],
+                images: images,
                 slug: string_to_slug(data.title)
             }).then(d => productData(productUrl, dispatch))
             createProductForm.current.reset()
@@ -89,7 +92,15 @@ const ProductForm = ({ updateData, id, setModal }) => {
         }
     }
     return (
-        <form ref={createProductForm} onSubmit={(e) => handleSubmit(e)} action="" className='flex flex-col gap-[5px]'>
+        <form ref={createProductForm} onSubmit={(e) => {
+            if (images.length > 2) {
+                handleSubmit(e)
+            }
+            else {
+                e.preventDefault()
+                imageInput.current.focus()
+            }
+        }} action="" className='flex flex-col gap-[5px]'>
             <label htmlFor="name">{t('product-name')}</label>
             <Input required defaultValue={updateData?.title} onChange={(e) => {
                 const value = e.target.value.trim()
@@ -112,29 +123,32 @@ const ProductForm = ({ updateData, id, setModal }) => {
                 }
             }} className='mb-[10px]' type="text" placeholder={t('enter-the-product-price')} id='price' />
 
-            <label htmlFor="image-url1">{t('product-image-url')}(1)</label>
-            <Input required defaultValue={updateData?.images?.[0]} onChange={(e) => {
-                const value = e.target.value.trim()
-                if (value.length > 0) {
-                    setImg1(value)
-                }
-            }} className='mb-[10px]' type="url" placeholder={t('enter-the-product-image-url')} id='image-url1' />
+            <label htmlFor="image-url">{t('product-image-url')}</label>
+            {
+                updateData ?
+                    <div className="flex flex-col gap-[10px] mb-[10px]">
+                        {
+                            updateData.images.map((item, index) => (
+                                <UpdateInput key={index} item={item} index={index} data={data} setData={setData}/>
+                            ))
+                        }
+                    </div>
+                    :
+                    <InputGroup>
+                        <InputRightElement>
+                            <IconButton onClick={() => {
+                                const value = imageInput?.current.value.trim()
+                                if (value.length > 0 && !images.find(item => item === value)) {
+                                    setImages([...images, value])
+                                    imageInput.current.value = ''
+                                }
+                                console.log(images)
+                            }}><AiOutlinePlus /></IconButton>
+                        </InputRightElement>
+                        <Input ref={imageInput} className='mb-[10px]' type="url" placeholder={t('enter-the-product-image-url')} id='image-url' />
 
-            <label htmlFor="image-url2">{t('product-image-url')}(2)</label>
-            <Input required defaultValue={updateData?.images[1]} onChange={(e) => {
-                const value = e.target.value.trim()
-                if (value.length > 0) {
-                    setImg2(value)
-                }
-            }} className='mb-[10px]' type="url" placeholder={t('enter-the-product-image-url')} id='image-url2' />
-
-            <label htmlFor="image-url3">{t('product-image-url')}(3)</label>
-            <Input required defaultValue={updateData?.images[2]} onChange={(e) => {
-                const value = e.target.value.trim()
-                if (value.length > 0) {
-                    setImg3(value)
-                }
-            }} className='mb-[10px]' type="url" placeholder={t('enter-the-product-image-url')} id='image-url3' />
+                    </InputGroup>
+            }
 
             <label htmlFor="rating">{t('product-rating')}</label>
             <Input required defaultValue={updateData?.rating} onChange={(e) => {

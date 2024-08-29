@@ -44,7 +44,7 @@ const Header = () => {
           </InputLeftElement>
           <Input borderColor={borderColor} type="text" placeholder={t('search')} className="border-[1px] w-full" />
         </InputGroup>
-        <button className="hidden sm:flex text-[24px] items-center">
+        <button className="hidden sm:flex lg:hidden text-[24px] items-center">
           <CiSearch />
         </button>
         <Box className="relative hidden sm:block">
