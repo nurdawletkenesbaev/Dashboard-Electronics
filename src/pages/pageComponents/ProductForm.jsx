@@ -14,18 +14,6 @@ const ProductForm = ({ updateData, id, setModal }) => {
 
     const { t } = useTranslation()
 
-    // const [img1, setImg1] = useState('1')
-    // const [img2, setImg2] = useState('2')
-    // const [img3, setImg3] = useState('3')
-
-    // useEffect(() => {
-    //     if (updateData) {
-    //         setImg1(updateData.images[0])
-    //         setImg2(updateData.images[1])
-    //         setImg3(updateData.images[2])
-    //     }
-    // }, [])
-
     const createProductForm = useRef()
     const [data, setData] = useState(
         updateData ? updateData
@@ -123,31 +111,32 @@ const ProductForm = ({ updateData, id, setModal }) => {
                 }
             }} className='mb-[10px]' type="text" placeholder={t('enter-the-product-price')} id='price' />
 
-            <label htmlFor="image-url">{t('product-image-url')}</label>
+
             {
                 updateData ?
                     <div className="flex flex-col gap-[10px] mb-[10px]">
                         {
                             updateData.images.map((item, index) => (
-                                <UpdateInput key={index} item={item} index={index} data={data} setData={setData}/>
+                                <UpdateInput key={index} item={item} index={index} data={data} setData={setData} />
                             ))
                         }
                     </div>
                     :
-                    <InputGroup>
-                        <InputRightElement>
-                            <IconButton onClick={() => {
-                                const value = imageInput?.current.value.trim()
-                                if (value.length > 0 && !images.find(item => item === value)) {
-                                    setImages([...images, value])
-                                    imageInput.current.value = ''
-                                }
-                                console.log(images)
-                            }}><AiOutlinePlus /></IconButton>
-                        </InputRightElement>
-                        <Input ref={imageInput} className='mb-[10px]' type="url" placeholder={t('enter-the-product-image-url')} id='image-url' />
-
-                    </InputGroup>
+                    <>
+                        <label htmlFor="image-url">{t('product-image-url')}</label>
+                        <InputGroup>
+                            <InputRightElement>
+                                <IconButton onClick={() => {
+                                    const value = imageInput?.current.value.trim()
+                                    if (value.length > 0 && !images.find(item => item === value)) {
+                                        setImages([...images, value])
+                                        imageInput.current.value = ''
+                                    }
+                                }}><AiOutlinePlus /></IconButton>
+                            </InputRightElement>
+                            <Input ref={imageInput} className='mb-[10px]' type="url" placeholder={t('enter-the-product-image-url')} id='image-url' />
+                        </InputGroup>
+                    </>
             }
 
             <label htmlFor="rating">{t('product-rating')}</label>

@@ -8,8 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, IconButton, Input, useColorModeValue } from "@chakra-ui/react";
 import { useInView } from "react-intersection-observer";
+import { useTranslation } from "react-i18next";
 
 const CategoryItem = ({ item }) => {
+  const {t} = useTranslation()
   const {ref, inView} = useInView({
     threshold: 0.2,
     triggerOnce: true
@@ -84,10 +86,10 @@ const CategoryItem = ({ item }) => {
         {
           modalType === 'delete' ?
             <Box backgroundColor={bgColor} className='absolute z-10 top-10 p-[20px] bg-white h-auto border-[1px] border-gray-300 shadow-lg rounded-sm'>
-              <p>Are you sure this category deleted?</p>
+              <p>{t('delete-this-category')}</p>
               <div className='flex justify-end gap-3 pt-3'>
-                <Button colorScheme="blue" onClick={() => setModal(false)}>Cancel</Button>
-                <Button colorScheme="red" onClick={() => deleteItem(url, item.id)} >Delete</Button>
+                <Button colorScheme="blue" onClick={() => setModal(false)}>{t('cancel')}</Button>
+                <Button colorScheme="red" onClick={() => deleteItem(url, item.id)} >{t('delete')}</Button>
               </div>
             </Box>
             :

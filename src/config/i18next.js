@@ -26,6 +26,7 @@ i18n.use(initReactI18next)
                     "product-price": "Price",
                     "enter-the-product-price": "Enter the price",
                     "product-image-url": "Image URL address. (Min 3)",
+                    "image-url": "Image URL address",
                     "enter-the-product-image-url": "Enter the image URL",
                     "product-rating": "Rating",
                     "enter-the-product-rating": "Enter the rating",
@@ -33,7 +34,11 @@ i18n.use(initReactI18next)
                     "enter-the-product-description": "Enter the description",
                     "select-category": "Select a category",
                     "search": 'Search',
-                    "select-language": "Select a language"
+                    "select-language": "Select a language",
+                    "delete-this-category": "Delete this category?",
+                    "delete-this-product": "Delete this product?",
+                    "delete": "Delete",
+                    "cancel": "Cancel"
                 }
             },
             rus : {
@@ -53,7 +58,8 @@ i18n.use(initReactI18next)
                     "enter-the-product-name": "Введите имя продукта",
                     "product-price": "Цена",
                     "enter-the-product-price": "Введите цену",
-                    "product-image-url": "URL-адрес изображения. Мин()",
+                    "product-image-url": "URL-адрес изображения. Мин(3)",
+                    "image-url": "URL-адрес изображения",
                     "enter-the-product-image-url": "Введите URL-адрес изображения",
                     "product-rating": "Рейтинг",
                     "enter-the-product-rating": "Введите рейтинг",
@@ -61,7 +67,11 @@ i18n.use(initReactI18next)
                     "enter-the-product-description": "Введите описание",
                     "select-category": "Выберите категорию",
                     "search": "Поиск",
-                    "select-language": "Выберите язык"
+                    "select-language": "Выберите язык",
+                    "delete-this-category": "Удалить эту категорию?",
+                    "delete-this-product": "Удалить этот продукт?",
+                    "delete": "Удалить",
+                    "cancel": "Отмена"
                 }
             },
             qar : {
@@ -82,6 +92,7 @@ i18n.use(initReactI18next)
                     "product-price": "Baha",
                     "enter-the-product-price": "Bahanı kiritiń",
                     "product-image-url": "Súwrettiń URL mánzili. (Min 3)",
+                    "image-url": "Súwrettiń URL mánzili",
                     "enter-the-product-image-url": "Súwrettiń URL mánzilin kiritiń",
                     "product-rating": "Reyting",
                     "enter-the-product-rating": "Reytingdi kiritiń",
@@ -89,7 +100,11 @@ i18n.use(initReactI18next)
                     "enter-the-product-description": "Sıpatlama kiritiń",
                     "select-category": "Kategoriyanı saylań",
                     "search": "Izlew",
-                    "select-language": "Tildi tańlań"
+                    "select-language": "Tildi tańlań",
+                    "delete-this-category": "Bul kategoriya óshirilsinbe?",
+                    "delete-this-product": "Bul ónim óshirilsinbe?",
+                    "delete": "Óshiriw",
+                    "cancel": "Biykar qılıw"
                 }
             }
         },

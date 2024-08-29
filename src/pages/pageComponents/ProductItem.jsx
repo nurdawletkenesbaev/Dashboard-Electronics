@@ -12,8 +12,10 @@ import ProductForm from './ProductForm'
 import { useNavigate } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import { Box, Button, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 
 const ProductItem = ({ item }) => {
+    const {t} = useTranslation()
     const { dispatch } = useContext(MainContext)
     const [modal, setModal] = useState(false)
     const [modalType, setModalType] = useState('delete')
@@ -95,15 +97,15 @@ const ProductItem = ({ item }) => {
             <div className={`fixed z-[2] ${modal ? 'flex backdrop-blur-[2px]' : 'hidden'} top-0 bottom-0 right-0 flex justify-center  left-0 bg-inherit  duration-500 ease items-start`}>
                 {
                     modalType === 'update' ?
-                        <Box backgroundColor={bgColor} className="absolute top-10 bottom-10 overflow-y-auto z-10 w-[400px]  p-[20px] h-auto border-[1px] border-gray-300 shadow-lg rounded-sm">
+                        <Box backgroundColor={bgColor} className="absolute top-10 bottom-10 overflow-y-auto z-10 sm:w-[400px]  p-[20px] h-auto border-[1px] border-gray-300 shadow-lg rounded-sm">
                             <ProductForm updateData={item} id={item.id} setModal={setModal} />
                         </Box>
                         :
                         <Box backgroundColor={bgColor} className='absolute z-10 top-10 p-[20px] h-auto border-[1px] border-gray-300 shadow-lg rounded-sm'>
-                            <p>Are you sure this category deleted?</p>
+                            <p>{t('delete-this-product')}</p>
                             <div className='flex justify-end gap-3 pt-3'>
-                                <Button colorScheme="blue" onClick={() => setModal(false)} >Cancel</Button>
-                                <Button colorScheme="red" onClick={() => deleteItem(url, item.id)}>Delete</Button>
+                                <Button colorScheme="blue" onClick={() => setModal(false)} >{t('cancel')}</Button>
+                                <Button colorScheme="red" onClick={() => deleteItem(url, item.id)}>{t('delete')}</Button>
                             </div>
                         </Box>
 

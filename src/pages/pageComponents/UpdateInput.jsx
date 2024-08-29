@@ -1,12 +1,14 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const UpdateInput = ({data, index, item, setData}) => {
+    const {t} = useTranslation()
     return (
         <div  className="flex flex-col items-center border-[1px] border-gray-300 p-[10px] rounded-md">
             <div className="w-[180px] my-[10px] h-[150px] rounded-md p-[5px] border-gray-300 border-[1px]">
                 <img src={item} alt="" className="w-full h-full rounded-md object-contain" />
             </div>
-            <label htmlFor={`imgUrl${index + 1}`} className="font-bold">{`Image Url-${index + 1}`}</label>
+            <label htmlFor={`imgUrl${index + 1}`} className="font-bold">{`${t('image-url')}-${index + 1}`}</label>
             <input id={`imgUrl${index + 1}`} onChange={(e) => {
                 const value = e.target.value
                 if (value.length > 0) {
