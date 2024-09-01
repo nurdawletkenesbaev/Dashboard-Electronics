@@ -2,7 +2,7 @@ import { IoMdClose } from "react-icons/io";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { BiEditAlt } from "react-icons/bi";
 import React, { useContext, useRef, useState } from 'react'
-import { categoryData, deleteCategory, editCategory } from "../../store/actions";
+import { categoryData, deleteCategory, editCategory, deleteProduct, productData } from "../../store/actions";
 import { MainContext } from "../../store/context";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
@@ -26,12 +26,19 @@ const CategoryItem = ({ item }) => {
   const bgColor = useColorModeValue('gray.100', 'gray.700')
   const borderColor = useColorModeValue('gray.400', 'gray.600')
 
+  function deleteProducts(id) {
+    return state.products.filter(filterItem => filterItem.categoryId === id)
+  }
+
   const navigate = useNavigate()
   function filteredCategory(item){
     navigate(`/categories/${item.slug}-${item.id}`)
   }
   function deleteItem(url, id) {
     deleteCategory(url, id).then(d => categoryData(url, dispatch))
+    deleteProducts(id).forEach(item => {
+      deleteProduct('https://electronics-data-1f9x.onrender.com/products', item.id).then(d => productData('https://electronics-data-1f9x.onrender.com/categories', dispatch))
+    })
   }
 
   function handleSubmit(e, id) {

@@ -63,7 +63,7 @@ const ProductItem = ({ item }) => {
         <div className="">
             <Box backgroundColor={bgColor} ref={ref} className={`${inView ? 'top-0 opacity-100' : 'top-[30px] opacity-0'} duration-300 relative flex min-w-[190px] h-full flex-col justify-between gap-[5px] sm:gap-[10px] border-[1px] p-[8px] sm:p-[15px] rounded-md shadow-md ${colorMode === 'light' ? 'border-gray-400' : 'border-gray-600'}`}>
                 <div onClick={() => detailedProduct(item)} className={`h-[200px] border-[1px] p-[5px] sm:p-[10px] rounded-md  cursor-pointer hover:p-[3px] duration-200 ${colorMode === 'light' ? 'border-gray-400' : 'border-gray-600'}`}>
-                    <img src={item?.images[0]} alt="" className='w-full h-full object-contain' />
+                    <img src={item?.images?.[0]} alt="" className='w-full h-full object-contain' />
                 </div>
                 <div className='flex flex-1 flex-col justify-between'>
                     <p className='flex  font-semibold text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px]'>{item.title.length > 25 ? `${item.title.slice(0, 22)}...` : item.title}</p>
