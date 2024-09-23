@@ -35,10 +35,10 @@ const CategoryItem = ({ item }) => {
     navigate(`/categories/${item.slug}-${item.id}`)
   }
   function deleteItem(url, id) {
-    deleteCategory(url, id).then(d => categoryData(url, dispatch))
-    deleteProducts(id).forEach(item => {
-      deleteProduct('https://electronics-data-1f9x.onrender.com/products', item.id).then(d => productData('https://electronics-data-1f9x.onrender.com/categories', dispatch))
-    })
+    deleteCategory(url, id).then(d => categoryData(url, dispatch)).then(d => productData('https://electronics-data-1f9x.onrender.com/products', dispatch))
+    // deleteProducts(id).forEach(item => {
+    //   deleteProduct('https://electronics-data-1f9x.onrender.com/products', item.id).then(d => productData('https://electronics-data-1f9x.onrender.com/categories', dispatch))
+    // })
   }
 
   function handleSubmit(e, id) {
